@@ -54,6 +54,7 @@ select:focus { outline: none; border-color: var(--accent); }
 /* LOADING */
 .loading-screen { position: fixed; inset: 0; background: var(--bg); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; z-index: 500; }
 .loading-screen.hidden { display: none; }
+.setup-screen { display: none; }
 .spinner { width: 32px; height: 32px; border: 3px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin .7s linear infinite; }
 @keyframes spin { to { transform: rotate(360deg); } }
 .loading-text { color: var(--text2); font-size: 13px; }
@@ -181,7 +182,7 @@ select:focus { outline: none; border-color: var(--accent); }
 </div>
 
 <!-- SETUP (first time) -->
-<div class="setup-screen hidden" id="setupScreen">
+<div class="setup-screen" id="setupScreen">
   <div class="setup-card">
     <h1>👋 Configura tu tracker</h1>
     <p class="sub">Solo necesitas un repositorio de GitHub gratuito. Es donde se guardarán tus datos de keywords cada vez que importes un CSV nuevo.</p>
@@ -967,7 +968,7 @@ function setSyncStatus(status) {
 }
 
 function setLoading(msg) { document.getElementById('loadingText').textContent = msg; }
-function show(id) { const el=document.getElementById(id); if(el) el.style.display=''; }
+function show(id) { const el=document.getElementById(id); if(el) { el.style.display = id==='setupScreen' ? 'flex' : id==='appShell' ? 'block' : 'flex'; } }
 function hide(id) { const el=document.getElementById(id); if(el) el.style.display='none'; }
 
 function showToast(msg, type='') {
