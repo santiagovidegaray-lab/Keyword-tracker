@@ -376,8 +376,8 @@ async function init() {
   const cfg = getCfg();
 
   if (!cfg.owner || !cfg.repo || !cfg.token) {
-    hide('loadingScreen');
-    show('setupScreen');
+    document.getElementById('loadingScreen').style.display = 'none';
+    document.getElementById('setupScreen').style.display = 'flex';
     return;
   }
 
@@ -387,17 +387,17 @@ async function init() {
   const ios = await fetchDataset('ios');
 
   if (!android && !ios) {
-    hide('loadingScreen');
+    document.getElementById('loadingScreen').style.display = 'none';
+    document.getElementById('appShell').style.display = 'block';
     showToast('No se encontraron datos en GitHub. Importa un CSV para empezar.', 'error');
-    show('appShell');
     return;
   }
 
   if (android) datasets.android = android;
   if (ios) datasets.ios = ios;
 
-  hide('loadingScreen');
-  show('appShell');
+  document.getElementById('loadingScreen').style.display = 'none';
+  document.getElementById('appShell').style.display = 'block';
   populateAppSelector();
   renderAppView();
   setSyncStatus('ok');
@@ -437,8 +437,8 @@ async function saveSetup() {
   }
 
   setCfg(owner, repo, token);
-  hide('setupScreen');
-  show('loadingScreen');
+  document.getElementById('setupScreen').style.display = 'none';
+  document.getElementById('loadingScreen').style.display = 'flex';
   setLoading('Conexión establecida. Cargando datos…');
   await init();
 }
